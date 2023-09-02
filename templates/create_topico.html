@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Restaurant Create{% endblock %}
+{% block head %}
+    {{ super() }}
+    <style>
+      body {
+          min-height: 75rem;
+          padding-top: 4.5rem;
+      }
+  </style>
+{% endblock %}
+{% block content %}
+    <h1>Adicionar Tópico</h1>
+
+    <form method="POST" action="{{ url_for('add_restaurant') }}">
+        <div class="mb-3">
+          <label for="titulo" class="form-label">Título</label>
+          <input type="text" class="form-control" id="titulo" name="titulo">
+        </div>
+        <div class="mb-3">
+          <label for="categoria" class="form-label">Categoria</label>
+          <input type="text" class="form-control" id="categoria" name="categoria">
+        </div>
+        <div class="mb-3">
+            <label for="descricao" class="form-label">Descrição</label>
+            <input type="text" class="form-control" id="descricao" name="descricao">
+        </div>
+        <button type="submit" class="btn btn-primary">Adicionar</button>
+        <button type="cancel" class="btn btn-primary">Cancelar</button>
+    </form>
+{% endblock %}
+    

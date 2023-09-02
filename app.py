@@ -32,54 +32,54 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 # The import must be done after db initialization due to circular import issue
-from models import Restaurant, Review
+from models import Topico, Review
 
 @app.route('/', methods=['GET'])
 def index():
     print('Request for index page received')
-    restaurants = Restaurant.query.all()
-    return render_template('index.html', restaurants=restaurants)
+    topicos = Topico.query.all()
+    return render_template('index.html', topicos=topicos)
 
 @app.route('/<int:id>', methods=['GET'])
 def details(id):
-    restaurant = Restaurant.query.where(Restaurant.id == id).first()
-    reviews = Review.query.where(Review.restaurant == id)
-    return render_template('details.html', restaurant=restaurant, reviews=reviews)
+    topico = Topico.query.where(Topico.id == id).first()
+    reviews = Review.query.where(Review.topico == id)
+    return render_template('details.html', topico=topico, reviews=reviews)
 
 @app.route('/create', methods=['GET'])
-def create_restaurant():
+def create_topico():
     print('Request for add restaurant page received')
-    return render_template('create_restaurant.html')
+    return render_template('create_topico.html')
 
 @app.route('/add', methods=['POST'])
 @csrf.exempt
-def add_restaurant():
+def add_topico():
     try:
-        name = request.values.get('restaurant_name')
-        street_address = request.values.get('street_address')
-        description = request.values.get('description')
+        titulo = request.values.get('titulo')
+        categoria = request.values.get('categoria')
+        descricao = request.values.get('descricao')
     except (KeyError):
         # Redisplay the question voting form.
         return render_template('add_restaurant.html', {
             'error_message': "You must include a restaurant name, address, and description",
         })
     else:
-        restaurant = Restaurant()
-        restaurant.name = name
-        restaurant.street_address = street_address
-        restaurant.description = description
-        db.session.add(restaurant)
+        topico = Topico()
+        topico.titulo = titulo
+        topico.categoria = categoria
+        topico.descricao = descricao
+        db.session.add(topico)
         db.session.commit()
 
-        return redirect(url_for('details', id=restaurant.id))
+        return redirect(url_for('details', id=topico.id))
 
 @app.route('/review/<int:id>', methods=['POST'])
 @csrf.exempt
 def add_review(id):
     try:
-        user_name = request.values.get('user_name')
-        rating = request.values.get('rating')
-        review_text = request.values.get('review_text')
+        usuario = request.values.get('usuario')
+        nota = request.values.get('nota')
+        texto_review = request.values.get('texto_review')
     except (KeyError):
         #Redisplay the question voting form.
         return render_template('add_review.html', {
@@ -87,11 +87,11 @@ def add_review(id):
         })
     else:
         review = Review()
-        review.restaurant = id
-        review.review_date = datetime.now()
-        review.user_name = user_name
-        review.rating = int(rating)
-        review.review_text = review_text
+        review.topico = id
+        review.data_review = datetime.now()
+        review.usuario = usuario
+        review.nota = int(nota)
+        review.texto_review = texto_review
         db.session.add(review)
         db.session.commit()
 
@@ -100,15 +100,15 @@ def add_review(id):
 @app.context_processor
 def utility_processor():
     def star_rating(id):
-        reviews = Review.query.where(Review.restaurant == id)
+        reviews = Review.query.where(Review.topico == id)
 
-        ratings = []
+        notas = []
         review_count = 0
         for review in reviews:
-            ratings += [review.rating]
+            notas += [review.nota]
             review_count += 1
 
-        avg_rating = sum(ratings) / len(ratings) if ratings else 0
+        avg_rating = sum(notas) / len(notas) if notas else 0
         stars_percent = round((avg_rating / 5.0) * 100) if review_count > 0 else 0
         return {'avg_rating': avg_rating, 'review_count': review_count, 'stars_percent': stars_percent}
 

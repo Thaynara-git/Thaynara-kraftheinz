@@ -4,29 +4,29 @@ from sqlalchemy.orm import validates
 from app import db
 
 
-class Restaurant(db.Model):
-    __tablename__ = 'restaurant'
+class Topico(db.Model):
+    __tablename__ = 'topico'
     id = Column(Integer, primary_key=True)
-    name = Column(String(50))
-    street_address = Column(String(50))
-    description = Column(String(250))
+    titulo = Column(String(50))
+    categoria = Column(String(50))
+    descricao = Column(String(250))
 
     def __str__(self):
-        return self.name
+        return self.titulo
 
 class Review(db.Model):
     __tablename__ = 'review'
     id = Column(Integer, primary_key=True)
-    restaurant = Column(Integer, ForeignKey('restaurant.id', ondelete="CASCADE"))
-    user_name = Column(String(30))
-    rating = Column(Integer)
-    review_text = Column(String(500))
-    review_date = Column(DateTime)
+    topico = Column(Integer, ForeignKey('topico.id', ondelete="CASCADE"))
+    usuario = Column(String(30))
+    nota = Column(Integer)
+    texto_review = Column(String(500))
+    data_review = Column(DateTime)
 
-    @validates('rating')
+    @validates('nota')
     def validate_rating(self, key, value):
         assert value is None or (1 <= value <= 5)
         return value
 
     def __str__(self):
-        return f"{self.user_name}: {self.review_date:%x}"
+        return f"{self.usuario}: {self.data_review:%x}"

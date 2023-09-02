@@ -41,23 +41,23 @@
   </style>
 {% endblock %}
 {% block content %}
-      <h1>Restaurants</h1>
+      <h1>Tópicos</h1>
 
       {% if True %}
           <table class="table">
               <thead>
                   <tr>
-                      <th>Name</th>
-                      <th>Rating</th>
-                      <th class="text-end">Details</th>
+                      <th>Nome</th>
+                      <th>Nota</th>
+                      <th class="text-end">Detalhes</th>
                   </tr>
               </thead>
               <tbody>
-                  {% for restaurant in restaurants %}
+                  {% for topico in topicos %}
                       <tr>
-                          <td>{{ restaurant.name }}</td>
+                          <td>{{ topico.titulo }}</td>
                           <td>{% include "star_rating.html" %}</td>
-                          <td class="text-end"><a href="{{ url_for('details', id=restaurant.id) }}" class="btn btn-sm btn-primary">Details</a></td>
+                          <td class="text-end"><a href="{{ url_for('details', id=topico.id) }}" class="btn btn-sm btn-primary">Mais Detalhes</a></td>
                       </tr>
                   {% endfor %}
               </tbody>
@@ -67,6 +67,6 @@
       {% endif %}
 
       <div class="d-flex justify-content-end">
-              <a href="{{ url_for('create_restaurant') }}" class="btn btn-success px-4 gap-3">Add new restaurant</a>
+              <a href="{{ url_for('create_topico') }}" class="btn btn-success px-4 gap-3">Add new restaurant</a>
       </div>
 {% endblock %}
