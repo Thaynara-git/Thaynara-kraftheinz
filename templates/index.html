@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Restaurant List{% endblock %}
+{% block title %}Tópicos{% endblock %}
 {% block head %}
     {{ super() }}
     <style>
@@ -47,7 +47,7 @@
           <table class="table">
               <thead>
                   <tr>
-                      <th>Nome</th>
+                      <th>Título</th>
                       <th>Nota</th>
                       <th class="text-end">Detalhes</th>
                   </tr>
@@ -63,10 +63,10 @@
               </tbody>
           </table>
       {% else %}
-          <p>No restaurants exist.  Select Add new restaurant to add one.</p>
+          <p>Ainda não temos tópicos. Clique no botão para adicionar um.</p>
       {% endif %}
 
       <div class="d-flex justify-content-end">
-              <a href="{{ url_for('create_topico') }}" class="btn btn-success px-4 gap-3">Add new restaurant</a>
+              <a href="{{ url_for('create_topico') }}" class="btn btn-success px-4 gap-3">Adicionar Novo Tópico</a>
       </div>
 {% endblock %}
