@@ -54,24 +54,24 @@ def create_topico():
 @app.route('/add', methods=['POST'])
 @csrf.exempt
 def add_topico():
-    try:
-        titulo = request.values.get('titulo')
-        categoria = request.values.get('categoria')
-        descricao = request.values.get('descricao')
-    except (KeyError):
-        # Redisplay the question voting form.
-        return render_template('add_restaurant.html', {
-            'error_message': "You must include a restaurant name, address, and description",
-        })
-    else:
-        topico = Topico()
-        topico.titulo = titulo
-        topico.categoria = categoria
-        topico.descricao = descricao
-        db.session.add(topico)
-        db.session.commit()
+    titulo = request.values.get('titulo')
+    categoria = request.values.get('categoria')
+    descricao = request.values.get('descricao')
 
-        return redirect(url_for('details', id=topico.id))
+    # Verifique se os campos obrigatórios estão preenchidos
+    if not titulo or not categoria or not descricao:
+        return render_template('create_topico.html', {
+            'error_message': "Todos os campos (titulo, categoria e descricao) são obrigatórios.",
+        })
+
+    topico = Topico()
+    topico.titulo = titulo
+    topico.categoria = categoria
+    topico.descricao = descricao
+    db.session.add(topico)
+    db.session.commit()
+
+    return redirect(url_for('details', id=topico.id))
 
 @app.route('/review/<int:id>', methods=['POST'])
 @csrf.exempt
