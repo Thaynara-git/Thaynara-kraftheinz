@@ -12,7 +12,7 @@
 {% block content %}
     <h1>Adicionar Assunto</h1>
 
-    <form>
+    <form method="POST" action="{{ url_for('add_topico') }}">
         <div class="mb-3">
           <label for="titulo" class="form-label">Título</label>
           <input type="text" class="form-control" id="titulo" name="titulo">
@@ -20,6 +20,7 @@
         <div class="mb-3">
           <label for="categoria" class="form-label">Categoria</label>
           <select class="form-control" id="categoria" name="categoria">
+            <option value="">Selecione uma Categoria</option>
             <option value="Ambiental">Ambiental</option>
             <option value="Governanca">Governança</option>
             <option value="Social">Social</option>
@@ -29,8 +30,8 @@
             <label for="descricao" class="form-label">Descrição</label>
             <input type="text" class="form-control" id="descricao" name="descricao">
         </div>
-        <button onClick="{{ url_for('add_topico') }}"type="submit" class="btn btn-primary">Adicionar</button>
-        <button onClick="{{ url_for('index') }}" type="cancel" class="btn btn-primary">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Adicionar</button>
+        <button type="cancel" class="btn btn-primary">Cancelar</button>
     </form>
 {% endblock %}
     
