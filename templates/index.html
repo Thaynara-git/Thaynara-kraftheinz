@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Tópicos{% endblock %}
+{% block title %}Feed{% endblock %}
 {% block head %}
     {{ super() }}
     <style>
@@ -41,7 +41,7 @@
   </style>
 {% endblock %}
 {% block content %}
-      <h1>Tópicos</h1>
+      <h1>Feed</h1>
 
       {% if True %}
           <table class="table">
@@ -67,6 +67,6 @@
       {% endif %}
 
       <div class="d-flex justify-content-end">
-              <a href="{{ url_for('create_topico') }}" class="btn btn-success px-4 gap-3">Adicionar Novo Tópico</a>
+              <a href="{{ url_for('create_topico') }}" class="btn btn-success px-4 gap-3">Adicionar Assunto</a>
       </div>
 {% endblock %}
