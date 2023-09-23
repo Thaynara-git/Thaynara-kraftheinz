@@ -60,4 +60,4 @@ jobs:
         with:
           app-name: 'kraftheinz'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9A7A0B79FFE44CB89D9B250153F05791 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D0F3BFE89D494CBBAA5C5B2B0AE2FC94 }}
